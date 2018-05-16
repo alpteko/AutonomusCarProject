@@ -1,0 +1,50 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}          
+\usepackage{chngcntr}
+\counterwithin*{equation}{section}
+\counterwithin*{equation}{subsection}
+\usepackage{graphicx}
+\graphicspath{{Images/}}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{svg}
+
+\title{ Bo\u{g}azi\c{c}i University\\CMPE 591  \\
+   \large   Dynamic Facial Analysis: From Bayesian Filtering to Recurrent Neural Network \\
+	CVPR 2017   
+   \\
+   \small  Jinwei Gu    Xiaodong Yang    Shalini De Mello    Jan Kautz
+}
+\author{Alptekin Orbay \\ Student ID: 2017700090}
+\date{\today}
+\begin{document}
+
+
+\begin{titlepage}
+  \maketitle
+\end{titlepage}
+\newpage
+\tableofcontents
+\newpage
+\section{Motivation}
+	Motivation of the paper is that we may transfer the idea of deep learning in Computer Vision that disables feature extraction process to tracking. Actually, the problem in tracking is not feature extraction, but parameter engineering. In classical methods those are Bayesian Filters that performs well, it is essential to model parameters and construct the correct hidden markov model(HMM). It is an challenging issue and needs domain knowledge to some extent. Therefore, it is similiar to CNN idea that learning mechanism parameters from data by enforcing high prior to model. Recurrent Neural Network(RNN) and HMM structure looks like same at first glance and both performs well on temporal data, although hidden dynamics are very different. In short, RNN may outperform classical methods if there is sufficient amount of data.
+\section{Idea \& Contributions}
+ The paper claims that it have three contributions. First one is that it reveals the similarities and differences between RNN and HMM based methods. In this way, it makes experiment results reasonable that can explained with mathematical justification. Second on is that it proposes an end-to-end RNN method that obtains more successful results than classical methods. Third one differs from above in a way that a dataset is created for head pose estimation. It is an important contribution as the recent studies are based on big data.
+\subsection{Contribution I}
+	For closer look at first one, they prepare a table that explains major differences of two approaches. This table 1 is a good conclusion but, I think it is a great illustration in the paper to rearrange this equation.
+	\begin{align*}
+		h_t &= W h_{t-1} + K_t(x_t - V h_{t-1}) \\
+					&= (W -K_tV)h_{t-1} + K_tx_t \\
+					& = W^t_{bh} h_{t-1} + W^t_{bi}x_t
+	\end{align*}
+As seen above, in RNN, those weights,$ W^t_{bh}$ and $W^t_{bi}$ are constant after learning whereas they adapts themselves according to data in Kalman Filter. This phenomena is the major power of classical methods. However, in Toy Problem Section, RNN is better in simple 1-D tracking task. In my view, it was expected that Bayesian Filter should be better since the data is manually generated with known noise and certain kinematics. Actually, it is very easy to model and parametrize. However, RNN wins even if trained in a different noise level than test data. I could deduce that RNN learns the weights and graph dependencies more relax and accurately. In other words, even in this task, human brain is not good as learning from data to reveal true dynamics for very specific parameters. It does not mean that human brain is a bad learner, actually it performs well in abstraction, not in details.
+\subsection{Contribution II}
+	For more complex tasks, they propose end-to-end RNN and compare it with Particle Filter, Kalman Filter, Post-RNN(only RNN trained) with features from CNN. In RNN, a trick is applied that an additional fc layer is added to VGG16 and it weights is used as $W_{ih}$ and only $W_{hh}$ is trained from scratch. As it is expected that proposed RNN outperforms all the other methods. It is because it is very hard to model those complex tasks, namely \textit{Head Pose Estimation} and \textit{Facial Landmark Localization} so fully learning from data gives the best results in both tasks. There is a interesting detail that, in Facial Landmark Localization task on 300-VW dataset, end-to-end RNN results is improved if also trained with SynHead which is created by this study.
+\subsection{Contribution III}
+	This study provides a new synthetic dataset which contains 10 head models, 70 motion tracks and 510960 frames. Apart from dataset itself, it indicates that 
+synthetic data can support artificial neural network model strength if real life dataset is not large enough. In short, small amount of data may be sufficient and it is easier to create large amount of data and annotation.
+\section{Conclusion}
+	To sum up, this paper provides background, experimental knowledge and a dataset. Therefore, this paper is very satisfying and details are explained very well. It would be very easy to replicate the experiments and validate the results. Also, background information is provided sufficiently. However, particle filter and Kalman filter configurations are not mentioned in detail. Despite that, open dataset gives confident to believe that experiments are done in a scholar manner.
+\end{document}
