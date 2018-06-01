@@ -1,0 +1,10 @@
+\contentsline {section}{\numberline {1}Introduction}{2}
+\contentsline {section}{\numberline {2}Methods}{2}
+\contentsline {subsection}{\numberline {2.1}No Assumption}{2}
+\contentsline {subsection}{\numberline {2.2}Regularization with Generation}{3}
+\contentsline {subsubsection}{\numberline {2.2.1}Autoencoder}{3}
+\contentsline {subsubsection}{\numberline {2.2.2}Variational Autoencoder}{5}
+\contentsline {subsection}{\numberline {2.3}Imposing Prior}{6}
+\contentsline {subsubsection}{\numberline {2.3.1}CNN}{6}
+\contentsline {subsubsection}{\numberline {2.3.2}Convolutional Autoencoder}{6}
+\contentsline {section}{\numberline {3}Conclusion}{7}
